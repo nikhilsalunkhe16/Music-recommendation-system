@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Music Recommendation System</h1>
+        <form method="POST" action="/recommend">
+            <label for="artist_name">Enter Artist Name (Optional):</label>
+            <input type="text" id="artist_name" name="artist_name" placeholder="e.g., The Weeknd">
+
+            <label for="genre">Or Choose Genre (Optional):</label>
+            <input type="text" id="genre" name="genre" placeholder="e.g., pop, rock">
+
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if songs %}
+        <h2>Recommended Songs</h2>
+        <ul>
+            {% for song in songs %}
+            <li><a href="{{ song[1] }}" target="_blank">{{ song[0] }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
